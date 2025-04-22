@@ -31,8 +31,15 @@ impl PackageManagers {
 	pub fn new(k: &Kernel) -> Self {
 		let mut to_return = Vec::new();
 
+        let usr_bin = "/run/current-system/sw/bin";
+        let path = Path::new(usr_bin);
+
 		let has_bin = |package_manager: &str| -> bool {
-			Path::new("/usr/bin/").join(package_manager).exists()
+            if path.exists() {
+            	Path::new("/run/current-system/sw/bin").join(package_manager).exists()
+            } else {
+            	Path::new("/usr/bin").join(package_manager).exists()
+            }
 		};
 		let mut add = |package_manager: &str, command: &str| {
 			to_return.push(PackageManager::new(package_manager, {
@@ -110,6 +117,12 @@ impl PackageManagers {
 				}
 				if has_bin("mine") {
 					add("mine", "mine -q");
+				}
+				if has_bin("nix-store") {
+					add("nix-store", "nix-store -q --references /var/run/current-system/sw | cut -d'-' -f2-");
+				}
+				if has_bin("nix-env") {
+					add("nix-env", "nix-env --query");
 				}
 
 				if has_bin("flatpak") {
