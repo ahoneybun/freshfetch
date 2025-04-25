@@ -22,21 +22,15 @@ problems, be sure to file an issue so that it can be fixed!
  - Support for images
  - Add colorization for all distros (69/261 complete)
 
-## Installation
+## Running
 
-#### Arch Linux
+### NixOS
 
-On Arch Linux, you can install one of three AUR packages:
+```
+nix run github:ahoneybun/freshfetch
+```
 
-- `freshfetch-git` -- The bleeding-edge version of freshfetch that builds from the master branch.
-- `freshfetch-bin` -- The stable version of freshfetch that you just install. No compile required.
-- `freshfetch` -- Currently not set up right, will be fixed with the next release. Once set up, It'll build the latest stable version from source.
-
-#### Other distros
-
-With other distributions, you can either install the [latest `tar.gz` build](https://github.com/K4rakara/freshfetch/releases) or build from source.
-
-###### Build from source
+## Build from source
 
 To compile Freshfetch, just run `cargo build --release -vv`. This will build the executable for your platform. Then, run these commands:
 ```bash
